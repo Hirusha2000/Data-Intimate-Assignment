@@ -39,10 +39,16 @@ app.put('/users/:id', async (req, res) => {
   }
 });
 
-
-// Delete User
-router.delete('/:id', async (req, res) => {
-  // Implementation for deleting a user from the database
+app.delete('/users/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await pool.query('DELETE FROM users WHERE id = $1 RETURNING *', [id]);
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
+
 
 module.exports = router;
