@@ -1,7 +1,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const pool = require('./db'); // Import the database connection module
+const pool = require('../db/db'); // Import the database connection module
 const app = express();
 const PORT = process.env.PORT || 3000;
 
