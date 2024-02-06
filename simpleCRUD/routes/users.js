@@ -16,11 +16,17 @@ app.post('/users', async (req, res) => {
   }
 });
 
-
-// Read Users
-router.get('/', async (req, res) => {
-  // Implementation for reading users from the database
+app.get('/users', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM users');
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
+
+
 
 // Update User
 router.put('/:id', async (req, res) => {
