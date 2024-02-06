@@ -6,6 +6,19 @@ const router = express.Router();
 const pool = require('../db/db');
 
 
+// JWT Authentication Middleware
+const authenticateToken = (req, res, next) => {
+  const token = req.header('Authorization');
+  if (!token) return res.status(401).json({ error: 'Access denied' });
+
+  jwt.verify(token, 'your_secret_key', (err, user) => {
+    if (err) return res.status(403).json({ error: 'Invalid token' });
+
+    req.user = user;
+    next();
+  });
+};
+
 // User Registration with JWT
 router.post('/register', async (req, res) => {
   try {
@@ -95,17 +108,7 @@ router.delete('/:id', authenticateToken, async (req, res) => {
 });
 
 
-// JWT Authentication Middleware
-const authenticateToken = (req, res, next) => {
-  const token = req.header('Authorization');
-  if (!token) return res.status(401).json({ error: 'Access denied' });
 
-  jwt.verify(token, 'your_secret_key', (err, user) => {
-    if (err) return res.status(403).json({ error: 'Invalid token' });
 
-    req.user = user;
-    next();
-  });
-};
 
 module.exports = router;
