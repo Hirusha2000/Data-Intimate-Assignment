@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const pool = require('../db'); // Import the database connection module
+const pool = require('../db/db'); // Import the database connection module
 
 
 app.post('/users', async (req, res) => {
