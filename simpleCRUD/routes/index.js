@@ -1,9 +1,17 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+// Middleware
+app.use(bodyParser.json());
+
+// Routes
+app.get('/', (req, res) => {
+  res.send('Welcome to the CRUD API with JWT authentication!');
 });
 
-module.exports = router;
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
