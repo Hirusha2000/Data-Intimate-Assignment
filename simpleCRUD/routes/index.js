@@ -1,10 +1,13 @@
+
 const express = require('express');
 const bodyParser = require('body-parser');
+const pool = require('./db'); // Import the database connection module
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(bodyParser.json());
+
 
 // Routes
 app.get('/', (req, res) => {
@@ -15,3 +18,5 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+
