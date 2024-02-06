@@ -27,11 +27,18 @@ app.get('/users', async (req, res) => {
 });
 
 
-
-// Update User
-router.put('/:id', async (req, res) => {
-  // Implementation for updating a user in the database
+app.put('/users/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { username, password } = req.body;
+    const result = await pool.query('UPDATE users SET username = $1, password = $2 WHERE id = $3 RETURNING *', [username, password, id]);
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
+
 
 // Delete User
 router.delete('/:id', async (req, res) => {
