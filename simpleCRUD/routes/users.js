@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const pool = require('../db/db');
+const app = require("../app");
 
 
 // JWT Authentication Middleware
@@ -82,6 +83,7 @@ app.get('/users', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+//Hirusha Geeganage
 
 
 router.put('/:id', authenticateToken, async (req, res) => {
